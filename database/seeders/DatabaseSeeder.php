@@ -12,11 +12,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // \App\Models\User::factory(10)->create();
-
-        // \App\Models\User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
+        \App\Models\Contact::factory(10)->create();
+        \App\Models\Contact::factory()->create([
+            'nome_de_contato' => 'Felipe Castagnaro de Carvalho',
+            'email_de_contato' => 'castagnarofelipe@gmail.com',
+            'telefone_de_contato' => '+5545998092892',
+            'CEP' => '85852-352',
+            'estado' => 'Paraná',
+            'cidade' => 'Foz do Iguaçu',
+            'bairro' => 'Centro',
+            'endereco' => 'Avenida Iguaçu',
+            'numero' => '1080',
+        ]);
     }
 }
