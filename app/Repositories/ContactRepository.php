@@ -13,8 +13,28 @@ class ContactRepository
         $this->model = $model;
     }
 
-    public function getAll()
+    public function getAllContacts()
     {
         return $this->model->all();
+    }
+
+    public function getContact($id)
+    {
+        return $this->model->find($id);
+    }
+
+    public function createContact($data)
+    {
+        return $this->model->create($data);
+    }
+
+    public function contactExists($id)
+    {
+        return $this->model::where('id', $id)->exists();
+    }
+
+    public function updateContact($id, $data)
+    {
+        return $this->model::where('id', $id)->update($data);
     }
 }

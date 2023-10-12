@@ -15,4 +15,10 @@ use App\Http\Controllers\ContactController;
 |
 */
 
-Route::get('/test', [ContactController::class, 'testGetAll']);
+Route::controller(ContactController::class)->group(function () {
+    Route::get('/contact/{id}', 'show');
+    Route::post('/contacts', 'store');
+    Route::patch('/contact/{id}', 'update');
+    Route::delete('/contact/{id}', 'destroy');
+    Route::get('/contacts', 'showAll');
+});
