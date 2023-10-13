@@ -10,6 +10,7 @@ import { createPinia } from "pinia";
 import "font-awesome/css/font-awesome.css";
 import router from "./router";
 import App from "./App.vue";
+import i18n from "./i18n";
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -24,6 +25,7 @@ import AddContact from "./components/AddContact.vue";
 
 app.use(router);
 app.use(pinia);
+app.use(i18n);
 
 app.component("add-contact", AddContact);
 

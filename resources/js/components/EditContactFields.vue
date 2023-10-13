@@ -1,6 +1,6 @@
 <template>
     <div class="p-4 col-span-6 md:col-span-4">
-        <div class="text-2xl mb-4">{{ t("creating_contact") }}</div>
+        <div class="text-2xl mb-4">{{ t("editing_contact") }}</div>
         <form
             form
             @submit.prevent="submitForm"
@@ -221,12 +221,44 @@
 <script>
 import Alerts from "./Alerts.vue";
 import { useAlertsStore } from "../store/alerts.js";
+import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
 
 export default {
-    name: "AddContactFields",
+    name: "EditContactFields",
     components: {
         Alerts,
+    },
+    setup() {
+        const { t } = useI18n();
+        return { t };
+    },
+    async mounted() {
+        try {
+            this.isLoading = true;
+            const route = useRoute();
+            const contactId = route.params.id;
+
+            await axios
+                .get("http://localhost/api/contact/" + contactId)
+                .then((response) => {
+                    this.isLoading = false;
+                    this.formData.nome_de_contato =
+                        response.data.nome_de_contato;
+                    this.formData.email_de_contato =
+                        response.data.email_de_contato;
+                    this.formData.telefone_de_contato =
+                        response.data.telefone_de_contato;
+                    this.formData.CEP = response.data.CEP;
+                    this.formData.estado = response.data.estado;
+                    this.formData.cidade = response.data.cidade;
+                    this.formData.bairro = response.data.bairro;
+                    this.formData.endereco = response.data.endereco;
+                    this.formData.numero = response.data.numero;
+                });
+        } catch (error) {
+            this.isLoading = false;
+        }
     },
     data() {
         return {
@@ -273,13 +305,6 @@ export default {
             ],
         };
     },
-    setup() {
-        const { t } = useI18n();
-
-        return {
-            t,
-        };
-    },
     methods: {
         async formatCep() {
             let cep = this.formData.CEP.replace(/\D/g, "");
@@ -311,34 +336,30 @@ export default {
             const alertsStore = useAlertsStore();
 
             try {
+                const contactId = this.$route.params.id;
+
                 await axios
-                    .post("http://localhost/api/contacts", this.formData)
+                    .patch(
+                        "http://localhost/api/contact/" + contactId,
+                        this.formData
+                    )
                     .then((response) => {
                         alertsStore.addAlert({
-                            message: this.t("contact_added_successful"),
+                            message: this.t("contact_updated_sucessful"),
                             type: "success",
                         });
                         this.isLoading = false;
-                        this.formData.nome_de_contato = "";
-                        this.formData.email_de_contato = "";
-                        this.formData.telefone_de_contato = "";
-                        this.formData.CEP = "";
-                        this.formData.estado = "";
-                        this.formData.cidade = "";
-                        this.formData.bairro = "";
-                        this.formData.endereco = "";
-                        this.formData.numero = "";
                     })
                     .catch(() => {
                         alertsStore.addAlert({
-                            message: this.t("fail_to_add_contact"),
+                            message: this.t("failed_to_update_contact"),
                             type: "error",
                         });
                         this.isLoading = false;
                     });
             } catch (error) {
                 alertsStore.addAlert({
-                    message: this.t("fail_to_add_contact"),
+                    message: this.t("failed_to_update_contact"),
                     type: "error",
                 });
                 this.isLoading = false;

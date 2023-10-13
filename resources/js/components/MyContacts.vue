@@ -13,12 +13,12 @@
                                 v-show="contacts.length <= 0 && !isLoading"
                                 class="mt-6 mb-6 w-full overflow-hidden"
                             >
-                                Nenhum contato registrado.
+                                {{ t("no_contacts_registered") }}
                             </div>
                             <div
                                 v-for="contact in paginatedContacts"
                                 :key="contact.id"
-                                class="mt-5 mb-5 w-full overflow-hidden rounded-lg shadow-lg"
+                                class="mt-7 mb-5 w-full overflow-hidden rounded-lg shadow-lg"
                             >
                                 <div class="pl-6 pr-3 py-2">
                                     <div
@@ -38,10 +38,13 @@
                                                     class="fa fa-trash text-red-500 mr-2"
                                                 ></i>
                                             </button>
-
-                                            <i
-                                                class="fa fa-pencil text-yellow-300 ml-2"
-                                            ></i>
+                                            <router-link
+                                                :to="'/contact/' + contact.id"
+                                                class="font-semibold text-gray-900"
+                                                ><i
+                                                    class="fa fa-pencil text-yellow-300 ml-2"
+                                                ></i
+                                            ></router-link>
                                         </div>
                                     </div>
                                 </div>
@@ -55,7 +58,7 @@
                                     <span
                                         class="inline-block m-1 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
                                     >
-                                        <b>Telefone:</b>
+                                        <b>{{ t("phone") }}:</b>
                                         {{ contact.telefone_de_contato }}
                                     </span>
                                     <span
@@ -66,27 +69,32 @@
                                     <span
                                         class="inline-block m-1 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
                                     >
-                                        <b>Estado:</b> {{ contact.estado }}
+                                        <b>{{ t("state") }}:</b>
+                                        {{ contact.estado }}
                                     </span>
                                     <span
                                         class="inline-block m-1 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
                                     >
-                                        <b>Cidade:</b> {{ contact.cidade }}
+                                        <b>{{ t("city") }}:</b>
+                                        {{ contact.cidade }}
                                     </span>
                                     <span
                                         class="inline-block m-1 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
                                     >
-                                        <b>Bairro:</b> {{ contact.bairro }}
+                                        <b>{{ t("neighborhood") }}:</b>
+                                        {{ contact.bairro }}
                                     </span>
                                     <span
                                         class="inline-block m-1 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
                                     >
-                                        <b>Rua:</b> {{ contact.endereco }}
+                                        <b>{{ t("street") }}:</b>
+                                        {{ contact.endereco }}
                                     </span>
                                     <span
                                         class="inline-block m-1 bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
                                     >
-                                        <b>Número:</b> {{ contact.numero }}
+                                        <b>{{ t("number") }}:</b>
+                                        {{ contact.numero }}
                                     </span>
                                 </div>
                             </div>
@@ -146,6 +154,7 @@ import { ref } from "vue";
 import SideMenu from "./SideMenu.vue";
 import { useAlertsStore } from "../store/alerts.js";
 import Alerts from "./Alerts.vue";
+import { useI18n } from "vue-i18n";
 
 export default {
     name: "MyContacts",
@@ -160,6 +169,10 @@ export default {
             currentPage: 1,
             pageSize: 5,
         };
+    },
+    setup() {
+        const { t } = useI18n();
+        return { t };
     },
     computed: {
         totalPages() {
@@ -185,11 +198,12 @@ export default {
         const fetchData = async () => {
             try {
                 isLoading.value = true;
-                const response = await axios.get(
-                    "http://localhost/api/contacts"
-                );
-                isLoading.value = false;
-                contacts.value = response.data;
+                const response = await axios
+                    .get("http://localhost/api/contacts")
+                    .then((response) => {
+                        isLoading.value = false;
+                        contacts.value = response.data;
+                    });
             } catch (error) {
                 isLoading.value = false;
             }
@@ -230,14 +244,14 @@ export default {
                         this.contacts.splice(index, 1);
                     }
                     alertsStore.addAlert({
-                        message: "Contato removido com sucesso!",
+                        message: this.t("contact_removed_sucessful"),
                         type: "success",
                     });
                     this.isLoading = false;
                 })
                 .catch((error) => {
                     alertsStore.addAlert({
-                        message: "Falha ao remover o contato.",
+                        message: this.t("failed_to_remove_contact"),
                         type: "error",
                     });
                     this.isLoading = false;
