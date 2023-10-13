@@ -4,9 +4,12 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-import "./bootstrap";
+import "./bootstrap.js";
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 import "font-awesome/css/font-awesome.css";
+import router from "./router";
+import App from "./App.vue";
 
 /**
  * Next, we will create a fresh Vue application instance. You may then begin
@@ -14,22 +17,15 @@ import "font-awesome/css/font-awesome.css";
  * to use in your application's views. An example is included for you.
  */
 
-const app = createApp({});
+const pinia = createPinia();
+const app = createApp(App);
 
-import MainPage from "./components/MainPage.vue";
-app.component("main-page", MainPage);
+import AddContact from "./components/AddContact.vue";
 
-/**
- * The following block of code may be used to automatically register your
- * Vue components. It will recursively scan this directory for the Vue
- * components and automatically register them with their "basename".
- *
- * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
- */
+app.use(router);
+app.use(pinia);
 
-// Object.entries(import.meta.glob('./**/*.vue', { eager: true })).forEach(([path, definition]) => {
-//     app.component(path.split('/').pop().replace(/\.\w+$/, ''), definition.default);
-// });
+app.component("add-contact", AddContact);
 
 /**
  * Finally, we will attach the application instance to a HTML element with

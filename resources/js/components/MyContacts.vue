@@ -5,21 +5,19 @@
             <div
                 class="lg:col-start-2 col-span-12 lg:col-span-10 grid grid-cols-6 gap-x-8 gap-y-10 border-b border-gray-900/10 pb-12 mx-auto"
             >
-                <side-menu></side-menu>
-                <add-contact-fields />
+                <side-menu />
+                <div>Template Example</div>
             </div>
         </div>
     </router-view>
 </template>
 
 <script>
-import AddContactFields from "./AddContactFields.vue";
 import SideMenu from "./SideMenu.vue";
 
 export default {
-    name: "AddContact",
+    name: "MyContacts",
     components: {
-        AddContactFields,
         SideMenu,
     },
 };

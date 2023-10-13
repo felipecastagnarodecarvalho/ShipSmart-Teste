@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('nome_de_contato', 55);
             $table->string('email_de_contato', 55);
-            $table->string('telefone_de_contato', 13);
-            $table->string('CEP', 8);
+            $table->string('telefone_de_contato', 18);
+            $table->string('CEP', 9);
             $table->string('estado', 100);
             $table->string('cidade', 150);
             $table->string('bairro', 150);

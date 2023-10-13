@@ -8,7 +8,7 @@
     </head>
     <body>
         <div id="app">
-            <main-page />
+            <add-contact />
         </div>
         <script type="module" src="{{ mix('resources/js/app.js') }}"></script>
     </body>

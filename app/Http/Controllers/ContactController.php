@@ -33,8 +33,8 @@ class ContactController extends Controller
         $request->validate([
             'nome_de_contato' => 'required|max:55',
             'email_de_contato' => 'required|max:55',
-            'telefone_de_contato' => 'required|max:13',
-            'CEP' => 'required|max:8',
+            'telefone_de_contato' => 'required|max:18',
+            'CEP' => 'required|max:9',
             'estado' => 'required|max:100',
             'cidade' => 'required|max:150',
             'bairro' => 'required|max:150',
@@ -61,8 +61,8 @@ class ContactController extends Controller
         $request->validate([
             'nome_de_contato' => 'max:55',
             'email_de_contato' => 'max:55',
-            'telefone_de_contato' => 'max:13',
-            'CEP' => 'max:8',
+            'telefone_de_contato' => 'max:18',
+            'CEP' => 'max:9',
             'estado' => 'max:100',
             'cidade' => 'max:150',
             'bairro' => 'max:150',
