@@ -120,16 +120,20 @@ class ContactController extends Controller
         if ($response->successful()) {
             $endereco = $response->json();
 
-            $data =[
-                'logadouro' => $endereco['logradouro'],
-                'bairro' => $endereco['bairro'],
-                'localidade' => $endereco['localidade'],
-                'uf' => $endereco['uf']
-            ];
+            if (array_key_exists('logradouro', $endereco)) {
+                $data =[
+                    'logadouro' => $endereco['logradouro'],
+                    'bairro' => $endereco['bairro'],
+                    'localidade' => $endereco['localidade'],
+                    'uf' => $endereco['uf']
+                ];
 
-            return response()->json($data);
+                return response()->json($data);
+            } else {
+                return response()->json(['message' => 'CEP não encontrado'], 400);
+            }
         } else {
-            return response()->json(['message' => 'CEP não encontrado'], 404);
+            return response()->json(['message' => 'CEP não encontrado'], 400);
         }
     }
 }

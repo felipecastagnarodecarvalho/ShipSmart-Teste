@@ -3,7 +3,7 @@
         <form
             form
             @submit.prevent="submitForm"
-            class="mx-auto grid grid-cols-2 gap-x-8 gap-y-10"
+            class="mx-auto grid grid-cols-2 gap-x-8 gap-y-5"
         >
             <div class="col-span-2">
                 <label
@@ -19,6 +19,7 @@
                         name="nome_de_contato"
                         type="text"
                         autocomplete="nome_de_contato"
+                        maxlength="55"
                         class="block p-2.5 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -38,6 +39,7 @@
                         name="email_de_contato"
                         type="email"
                         autocomplete="email"
+                        maxlength="55"
                         class="block p-2.5 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -57,6 +59,7 @@
                         name="telefone_de_contato"
                         type="text"
                         autocomplete="telefone_de_contato"
+                        maxlength="18"
                         class="block p-2.5 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -77,6 +80,7 @@
                         type="text"
                         autocomplete="CEP"
                         @input="formatCep"
+                        maxlength="9"
                         class="block p-2.5 w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                 </div>
@@ -255,6 +259,7 @@ export default {
         async submitForm() {
             this.isLoading = true;
             const alertsStore = useAlertsStore();
+
             try {
                 await axios
                     .post("http://localhost/api/contacts", this.formData)

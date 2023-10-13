@@ -15,7 +15,7 @@ class ContactRepository
 
     public function getAllContacts()
     {
-        return $this->model->all();
+        return $this->model->orderBy('created_at', 'desc')->get();
     }
 
     public function getContact($id)
