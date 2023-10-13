@@ -62,4 +62,9 @@ class ContactService
 
         return $this->repository->updateContact($id, $data);
     }
+
+    public function deleteContact($id)
+    {
+        return $this->repository->deleteContact($id);
+    }
 }

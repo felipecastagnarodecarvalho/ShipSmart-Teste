@@ -21,4 +21,5 @@ Route::controller(ContactController::class)->group(function () {
     Route::patch('/contact/{id}', 'update');
     Route::delete('/contact/{id}', 'destroy');
     Route::get('/contacts', 'showAll');
+    Route::post('/cep', 'getDataByCEP');
 });

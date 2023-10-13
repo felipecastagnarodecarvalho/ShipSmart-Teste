@@ -37,4 +37,9 @@ class ContactRepository
     {
         return $this->model::where('id', $id)->update($data);
     }
+
+    public function deleteContact($id)
+    {
+        return $this->model::where('id', $id)->delete();
+    }
 }
