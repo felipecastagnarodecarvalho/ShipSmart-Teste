@@ -153,8 +153,8 @@
 import { ref } from "vue";
 import SideMenu from "./SideMenu.vue";
 import { useAlertsStore } from "../store/alerts.js";
-import Alerts from "./Alerts.vue";
 import { useI18n } from "vue-i18n";
+import Alerts from "./Alerts.vue";
 
 export default {
     name: "MyContacts",
@@ -169,10 +169,6 @@ export default {
             currentPage: 1,
             pageSize: 5,
         };
-    },
-    setup() {
-        const { t } = useI18n();
-        return { t };
     },
     computed: {
         totalPages() {
@@ -192,6 +188,8 @@ export default {
         },
     },
     setup() {
+        const { t } = useI18n();
+
         const isLoading = ref(false);
         const contacts = ref([]);
 
@@ -214,6 +212,7 @@ export default {
         return {
             isLoading,
             contacts,
+            t,
         };
     },
     methods: {

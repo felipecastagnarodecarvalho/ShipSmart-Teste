@@ -11,7 +11,7 @@ const i18n = createI18n({
             name: "Name",
             phone: "Phone Number",
             state: "State",
-            city: "Cidade",
+            city: "City",
             neighborhood: "Neighborhood",
             street: "Street",
             number: "Number",

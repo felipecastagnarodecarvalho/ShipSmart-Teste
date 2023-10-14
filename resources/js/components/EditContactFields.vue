@@ -219,10 +219,10 @@
 </template>
 
 <script>
-import Alerts from "./Alerts.vue";
 import { useAlertsStore } from "../store/alerts.js";
 import { useRoute } from "vue-router";
 import { useI18n } from "vue-i18n";
+import Alerts from "./Alerts.vue";
 
 export default {
     name: "EditContactFields",

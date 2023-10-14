@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Services\ContactService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use App\Mail\EmailNotification;
+use Illuminate\Support\Facades\Mail;
 
 class ContactController extends Controller
 {
@@ -46,6 +48,10 @@ class ContactController extends Controller
 
         if (!$contact) {
             return response()->json(__('messages.contact.created.fail'), 400);
+        }
+
+        if (!empty(env('NOTIFICATION_MAIL'))) {
+            Mail::to(env('NOTIFICATION_MAIL'))->queue(new EmailNotification($contact));
         }
 
         return response()->json([
