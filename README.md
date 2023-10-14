@@ -2,6 +2,7 @@
 
 -   Edit o .env.exemplo para .env e ajuste conforme necessario
 -   Rode: bash ./vendor/laravel/sail/bin/sail up
+-   Rode: php artisan migrate
 -   Rode: npm run install
 -   Rode: npm run dev
 
