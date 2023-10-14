@@ -11,6 +11,7 @@ Em caso de duvida me contate por email
 
 -   Rode: php artisan test
 
+## Features
 
 - [x] 1. Usar o Designer Pattern Service e Repository na codificação;
 - [x] 2. Usar o banco de dados relacional SQLite;
